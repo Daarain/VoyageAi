@@ -1,0 +1,54 @@
+{
+  "forecast": {
+    "data_source": "real",
+    "train_rows": 848484,
+    "val_rows": 247156,
+    "test_rows": 349076,
+    "test_start": "2024-01-01",
+    "interval_scale": 1.1500000000000006,
+    "skill_weight_by_horizon": [
+      0.2,
+      0.1,
+      0.1,
+      0.0,
+      0.3,
+      0.4,
+      0.6,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.6
+    ],
+    "by_horizon": {
+      "1-4w": {
+        "mape_model": 4.355589413757752,
+        "mape_naive_persistence": 4.365964257436514,
+        "coverage_p10_p90": 0.8152718684647003
+      },
+      "5-8w": {
+        "mape_model": 7.52317199348242,
+        "mape_naive_persistence": 7.386351968893484,
+        "coverage_p10_p90": 0.7706679035250463
+      },
+      "9-13w": {
+        "mape_model": 10.10605526623821,
+        "mape_naive_persistence": 9.90671886507318,
+        "coverage_p10_p90": 0.7692189657818015
+      }
+    }
+  },
+  "congestion": {
+    "mae_days_model": 0.11788347224122951,
+    "mae_days_persistence": 0.20975890541341521,
+    "test_rows": 3962
+  },
+  "idle": {
+    "mae_days_model": 0.42699573564787463,
+    "mae_days_mean_baseline": 1.366419186295443
+  },
+  "data_source": "real",
+  "model_version": "voyageai-gbm-milp-v1.0",
+  "trained_at": "2026-09-29T12:30:09.172258+00:00"
+}

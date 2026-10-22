@@ -1,0 +1,6 @@
+{
+  "name": "VoyageAI Pro",
+  "description": "AI-powered freight forecasting and vessel chartering intelligence for bulk cargo operations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

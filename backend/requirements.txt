@@ -1,0 +1,15 @@
+# Core ML + API
+numpy>=1.26
+pandas>=2.1
+scikit-learn>=1.4
+scipy>=1.11
+joblib>=1.3
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2.6
+pytest>=8.0
+
+# Data fetching (needed for fetch_market_data.py only — not needed at runtime)
+requests>=2.31
+yfinance>=0.2.40
+supabase>=2.4
