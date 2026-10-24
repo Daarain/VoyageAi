@@ -2,7 +2,7 @@
 // Protects /dashboard/* — redirects unauthenticated users to /login.
 // Protects /dashboard/admin/* — only Org Admin & Sys Admin can enter.
 
-import { createServerClient } from "@supabase/ssr";
+import { createServerClient, type SetAllCookies } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
@@ -14,7 +14,7 @@ export async function middleware(request: NextRequest) {
     {
       cookies: {
         getAll:    () => request.cookies.getAll(),
-        setAll: (cookiesToSet) =>
+        setAll: (cookiesToSet: Parameters<SetAllCookies>[0]) =>
           cookiesToSet.forEach(({ name, value, options }) =>
             response.cookies.set(name, value, options)
           ),
