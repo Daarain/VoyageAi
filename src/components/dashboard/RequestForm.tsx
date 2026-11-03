@@ -154,6 +154,7 @@ export function RequestForm() {
       quantityMt: Number(quantity),
       originPortName: origin,
       candidateDischargePorts: candidatePorts,
+      selectedDischargePortName: candidatePorts[0] || "Dhamra Port",
       targetSteelPlant: steelPlant,
       laycanStart: startDate,
       laycanEnd: endDate,
@@ -521,4 +522,3 @@ function FieldGroup({
     </div>
   );
 }
-

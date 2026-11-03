@@ -7,11 +7,18 @@ import { motion } from "framer-motion";
 import { FileText, Clock, CheckCircle2, XCircle, Loader2 } from "lucide-react";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { Badge } from "@/components/ui/Badge";
-import { supabase, type CharteringRequest, type Recommendation } from "@/lib/supabase";
+import {
+  supabase,
+  type DatabaseCharteringRequest,
+  type DatabaseRecommendation,
+} from "@/lib/supabase";
 import { useSession } from "@/lib/session-context";
 
-type RequestWithRec = CharteringRequest & {
-  recommendations: Pick<Recommendation, "vessel_class" | "recommended_contract" | "confidence_pct" | "created_at">[];
+type RequestWithRec = DatabaseCharteringRequest & {
+  recommendations: Pick<
+    DatabaseRecommendation,
+    "vessel_class" | "recommended_contract" | "confidence_pct" | "created_at"
+  >[];
 };
 
 const STATUS_TONE: Record<string, "cyan" | "amber" | "green" | "rose" | "default"> = {

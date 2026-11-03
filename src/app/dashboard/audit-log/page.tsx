@@ -36,7 +36,7 @@ export default function AuditLogPage() {
     if (!isAdmin && user?.id) q = q.eq("user_id", user.id);
 
     const { data, error } = await q;
-    if (!error && data) setEntries(data as AuditEntry[]);
+    if (!error && data) setEntries(data);
     setLoading(false);
   }
 

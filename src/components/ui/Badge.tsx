@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
 
-type BadgeTone = "cyan" | "teal" | "amber" | "rose" | "muted";
+export type BadgeTone = "cyan" | "teal" | "amber" | "rose" | "muted" | "default" | "green";
 
 const toneStyles: Record<BadgeTone, string> = {
   cyan: "bg-cyan-glow/10 text-cyan-glow border-cyan-glow/30",
@@ -9,6 +9,8 @@ const toneStyles: Record<BadgeTone, string> = {
   amber: "bg-amber-signal/10 text-amber-signal border-amber-signal/30",
   rose: "bg-rose-signal/10 text-rose-signal border-rose-signal/30",
   muted: "bg-panel-raised text-ink-muted border-glass-border",
+  default: "bg-panel-raised text-ink-muted border-glass-border",
+  green: "bg-teal-deep/15 text-teal-soft border-teal-deep/40",
 };
 
 export function Badge({

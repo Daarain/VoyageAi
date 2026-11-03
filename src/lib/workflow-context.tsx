@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useEffect, useState, useMemo, type ReactNode } from "react";
 import {
   type DemoScenario,
+  type CustomProcurementRequest,
   type OptimizationTaskStatus,
   type EscrowContract,
   type OptimizationPipelineStep,
@@ -16,20 +17,6 @@ import {
 } from "./demo-engine";
 import { AI_ENABLED, applyAiOverlay, fetchAiResult, requestKey, type AiResult } from "./ai-client";
 import type { Recommendation, VoyageRoute } from "./types";
-
-export interface CustomProcurementRequest {
-  commodity: string;
-  quantityMt: number;
-  originPortName: string;
-  candidateDischargePorts: string[];
-  selectedDischargePortName: string;
-  targetSteelPlant: string;
-  laycanStart: string;
-  laycanEnd: string;
-  numberOfVoyages: number;
-  contractDurationMonths: number | null;
-  scenarioId: string;
-}
 
 interface WorkflowContextValue {
   scenarioId: string;
@@ -279,4 +266,3 @@ export function useWorkflow() {
   }
   return context;
 }
-

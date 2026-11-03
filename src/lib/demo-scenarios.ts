@@ -11,6 +11,21 @@ import type {
 
 export type OptimizationPipelineStep = "PREDICT" | "CONSTRAIN" | "OPTIMIZE" | "SIMULATE";
 
+export interface CustomProcurementRequest {
+  commodity: string;
+  quantityMt: number;
+  originPortName: string;
+  candidateDischargePorts: string[];
+  selectedDischargePortName: string;
+  targetSteelPlant: string;
+  laycanStart: string;
+  laycanEnd: string;
+  numberOfVoyages: number;
+  contractDurationMonths: number | null;
+  scenarioId?: string;
+  requestId?: string;
+}
+
 export interface OptimizationTaskStatus {
   taskId: string;
   currentStep: OptimizationPipelineStep;
@@ -1186,6 +1201,9 @@ export const ALL_DEMO_SCENARIOS: DemoScenario[] = [
   SCENARIO_MAPUTO_DHAMRA,
   SCENARIO_NEWCASTLE_PARADIP,
 ];
+
+export const SCENARIO_MAPUTO_PARADIP = SCENARIO_MAPUTO_DHAMRA;
+export const SCENARIO_NEWCASTLE_KRISHNAPATNAM = SCENARIO_NEWCASTLE_PARADIP;
 
 export function getScenarioById(id: string): DemoScenario {
   const found = ALL_DEMO_SCENARIOS.find((s) => s.id === id);

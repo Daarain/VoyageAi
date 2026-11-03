@@ -54,7 +54,7 @@ export function PortIntelligenceView({ ports }: { ports: Port[] }) {
               </div>
             </div>
             <div className="flex items-center gap-1.5 font-mono text-sm">
-              <Ruler size={13} className="text-ink-dim" /> {p.maxDraft} m
+              <Ruler size={13} className="text-ink-dim" /> {p.maxDraft ?? p.maxDraftM ?? "—"} m
             </div>
             <div>
               {p.berthAvailable ? (
@@ -68,7 +68,7 @@ export function PortIntelligenceView({ ports }: { ports: Port[] }) {
               )}
             </div>
             <div>
-              <Badge tone={congestionTone[p.congestionLevel]}>{p.congestionLevel}</Badge>
+              <Badge tone={congestionTone[p.congestionLevel ?? "Low"]}>{p.congestionLevel ?? "Unknown"}</Badge>
             </div>
             <div className="font-mono text-xs text-ink-dim">
               {p.lat.toFixed(2)}°, {p.lng.toFixed(2)}°

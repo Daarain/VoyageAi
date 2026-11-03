@@ -18,23 +18,40 @@ export interface Vessel {
   vesselClass: VesselClass;
   dwt: number; // Deadweight Tonnage
   draft: number; // meters
-  status: "En Route" | "Idle" | "Loading" | "Discharging" | "Operational";
+  status: "En Route" | "In Transit" | "Idle" | "Loading" | "Discharging" | "Operational";
   currentLat: number;
   currentLng: number;
-  utilizationPct: number;
+  utilizationPct?: number;
+  speedKts?: number;
+  fuelConsumptionTonsPerDay?: number;
+  statusLabel?: string;
+  currentPortId?: string;
+  destinationPortId?: string;
+  eta?: string;
+  imoNumber?: string;
+  flagState?: string;
+  yearBuilt?: number;
 }
 
 // REQ-6.1.1 — ports entity
 export interface Port {
   id: string;
+  code?: string;
   name: string;
   country: string;
-  countryCode: string;
+  countryCode?: string;
   lat: number;
   lng: number;
-  maxDraft: number;
-  berthAvailable: boolean;
-  congestionLevel: "Low" | "Moderate" | "High";
+  maxDraft?: number;
+  maxDraftM?: number;
+  berthAvailable?: boolean;
+  congestionLevel?: "Low" | "Moderate" | "High";
+  currentCongestionDays?: number;
+  avgWaitDays?: number;
+  status?: string;
+  activeVesselsCount?: number;
+  anchorageQueueCount?: number;
+  weather?: Record<string, string | number>;
 }
 
 // REQ-2.2.1 — chartering_requests entity (mandatory intake fields)
@@ -91,6 +108,7 @@ export interface FreightForecast {
 // REQ-4.2.x — Vessel Matching & Optimization output
 export interface VesselRecommendation {
   vesselClass: VesselClass;
+  name?: string;
   dwt: number;
   draft: number;
   fitScorePct: number;
@@ -175,7 +193,7 @@ export interface MarketInsights {
 }
 
 export interface VoyageRoute {
-  id: string;
+  id?: string;
   originPort: Port;
   destinationPort: Port;
   vessel: Vessel;
@@ -183,8 +201,10 @@ export interface VoyageRoute {
   estTimeDays: number;
   avgSpeedKts: number;
   status: RouteStatus;
-  weather: "Good" | "Moderate" | "Severe";
-  etd: string;
-  eta: string;
-  cargoDescription: string;
+  weather: string;
+  etd?: string;
+  eta?: string;
+  cargoDescription?: string;
+  fuelEstimateTons?: number;
+  costEstimateUsd?: number;
 }

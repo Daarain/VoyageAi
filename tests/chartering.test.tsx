@@ -1,9 +1,13 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import { CharteringHub } from "@/components/dashboard/CharteringHub";
-import { SessionProvider } from "@/lib/session-context";
+import { useSession, type AuthUser } from "@/lib/session-context";
 import { ToastProvider } from "@/lib/toast-context";
 import type { CharteringRequest } from "@/lib/types";
+
+vi.mock("@/lib/session-context", () => ({
+  useSession: vi.fn(),
+}));
 
 vi.mock("next/link", () => ({
   default: ({ children, ...props }: React.PropsWithChildren<{ href: string }>) => <a {...props}>{children}</a>,
@@ -24,31 +28,53 @@ const request: CharteringRequest = {
   requestedBy: "Test User",
 };
 
-function renderHub() {
+const mockUseSession = vi.mocked(useSession);
+
+function renderHub(user: AuthUser | null) {
+  mockUseSession.mockReturnValue({
+    user,
+    session: null,
+    loading: false,
+    signup: async () => null,
+    login: async () => null,
+    logout: async () => {},
+    updateProfile: async () => null,
+  });
+
   render(
-    <SessionProvider>
-      <ToastProvider>
-        <CharteringHub requests={[request]} />
-      </ToastProvider>
-    </SessionProvider>
+    <ToastProvider>
+      <CharteringHub requests={[request]} />
+    </ToastProvider>
   );
 }
 
 describe("chartering actions", () => {
   it("shows approval actions only for Port Owner and updates approval state", async () => {
-    localStorage.setItem("voyageai-demo-session", JSON.stringify({ name: "Port Owner", email: "owner@example.com", role: "Port Owner" }));
-    renderHub();
-    expect(screen.getByRole("button", { name: /approve/i })).toBeInTheDocument();
-    fireEvent.click(screen.getByRole("button", { name: /approve/i }));
-    expect(screen.getByText("Approved")).toBeInTheDocument();
+    renderHub({
+      id: "test-owner",
+      name: "Port Owner",
+      email: "owner@example.com",
+      role: "Port Owner",
+      avatarUrl: null,
+      company: null,
+    });
+    const approveButton = await screen.findByRole("button", { name: /approve/i });
+    fireEvent.click(approveButton);
+    await waitFor(() => expect(screen.getByText("Approved")).toBeInTheDocument());
   });
 
-  it("requires confirmation before rejecting a request", () => {
-    localStorage.setItem("voyageai-demo-session", JSON.stringify({ name: "Port Owner", email: "owner@example.com", role: "Port Owner" }));
-    renderHub();
-    fireEvent.click(screen.getByRole("button", { name: /reject/i }));
-    expect(screen.getByRole("dialog")).toBeInTheDocument();
+  it("requires confirmation before rejecting a request", async () => {
+    renderHub({
+      id: "test-owner",
+      name: "Port Owner",
+      email: "owner@example.com",
+      role: "Port Owner",
+      avatarUrl: null,
+      company: null,
+    });
+    fireEvent.click(await screen.findByRole("button", { name: /reject/i }));
+    expect(await screen.findByRole("dialog")).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /confirm reject/i }));
-    expect(screen.getByText("Rejected")).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByText("Rejected")).toBeInTheDocument());
   });
 });

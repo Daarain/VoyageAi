@@ -22,6 +22,7 @@ function getVesselImage(vesselClass: string): string {
 
 const statusTone = {
   "En Route": "cyan",
+  "In Transit": "cyan",
   Idle: "muted",
   Loading: "amber",
   Discharging: "teal",
