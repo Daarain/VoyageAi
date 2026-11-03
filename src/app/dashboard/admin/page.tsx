@@ -79,7 +79,7 @@ export default function AdminPage() {
     );
   });
 
-  const stats = {
+  const stats = { 
     total:  users.length,
     active: users.filter((u) => u.is_active).length,
     admins: users.filter((u) =>

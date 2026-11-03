@@ -15,6 +15,12 @@ export interface Profile {
   company: string | null;
   updated_at?: string;
   email?: string | null;
+
+  // Admin dashboard fields
+  is_active: boolean;
+  last_sign_in_at: string | null;
+  created_at: string;
+  request_count?: number;
 }
 
 export interface Notification {
