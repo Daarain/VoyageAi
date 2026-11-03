@@ -14,6 +14,7 @@ export interface Profile {
   avatar_url: string | null;
   company: string | null;
   updated_at?: string;
+  email?: string | null;
 }
 
 export interface Notification {
